@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>13-git-conflicts</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="pandoc.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="managing-merge-conflicts">Managing merge conflicts</h1>
+<p>At some point, you’re going to have a merge conflict. Conflicts arise when users have made overlapping changes to a file, and Git can’t automatically merge the changes.</p>
+<p>In this exercise, you will deliberately create a merge conflict and resolve it.</p>
+<h2 id="creating-a-merge-conflict">Creating a merge conflict</h2>
+<blockquote>
+<p><em>Note</em>: This exercise has you commit a change directly to <code>master</code>. This is generally not considered Git best practices, and is only being done to demonstrate the process for resolving conflicts.</p>
+</blockquote>
+<ol type="1">
+<li>Create a new branch named <code>test</code> and switch to it.</li>
+</ol>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> branch test</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout test</span></code></pre></div>
+<ol start="2" type="1">
+<li>Make a change to <code>DEVNET.txt</code> and replace <code>guru</code> in <code>I'm a git guru now!</code> with <code>beginner</code>.</li>
+</ol>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="at">-i</span> <span class="st">&#39;s/guru/beginner/&#39;</span> DEVNET.txt</span></code></pre></div>
+<ol start="3" type="1">
+<li>Commit your change.</li>
+</ol>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-a</span> <span class="at">-m</span> <span class="st">&#39;changed guru to beginner&#39;</span></span></code></pre></div>
+<ol start="4" type="1">
+<li>Switch back to the master branch.</li>
+</ol>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout master</span></code></pre></div>
+<ol start="5" type="1">
+<li>Make a change to the same line by modifying <code>guru</code> in <code>I'm a git guru now!</code> to <code>master</code> this time and commit your change.</li>
+</ol>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="at">-i</span> <span class="st">&#39;s/guru/master/&#39;</span> DEVNET.txt</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-a</span> <span class="at">-m</span> <span class="st">&#39;changed guru to master&#39;</span></span></code></pre></div>
+<ol start="6" type="1">
+<li>Try to merge <code>master</code> and <code>test</code> with <code>git merge test</code>:</li>
+</ol>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> merge test</span></code></pre></div>
+<p>You should see a message similar to the following example:</p>
+<details>
+<summary>
+Output
+</summary>
+<pre><code>
+Auto-merging DEVNET.txt
+CONFLICT (content): Merge conflict in DEVNET.txt
+Automatic merge failed; fix conflicts and then commit the result.
+</code></pre>
+</details>
+<h2 id="resolving-the-conflict">Resolving the conflict</h2>
+<p>Open the <code>DEVNET.txt</code> file:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> DEVNET.txt</span></code></pre></div>
+<p>You should see some new entries in your file:</p>
+<details>
+<summary>
+Output
+</summary>
+<pre><code>
+<<<<<<< HEAD
+I am a git beginner now!
+=======
+I am a git master now!
+>>>>>>> test
+</code></pre>
+</details>
+<p>This shows you where the <code>HEAD</code> version (<code>master</code> in this example) conflicts with the <code>test</code> branch version.</p>
+<p>You have to fix this manually. Often, you will use a merge tool, but for this example, you can use the <code>vim</code> text editor.</p>
+<ol type="1">
+<li>Open <code>DEVNET.txt</code> with <code>vim</code>.</li>
+</ol>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">vim</span> DEVNET.txt</span></code></pre></div>
+<ol start="2" type="1">
+<li>Use your keyboard up and down arrows to navigate through the lines of text in the <code>DEVNET.txt</code> file and use the keystroke <code>dd</code> to delete the following lines:</li>
+</ol>
+<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+I am a git beginner now!
+=======
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; test</code></pre>
+<ol start="3" type="1">
+<li><p>Save your file in <code>vim</code> by pressing the <code>ESC</code> key and then <code>:</code> followed by <code>wq</code> and ENTER.</p></li>
+<li><p>Commit the change.</p></li>
+</ol>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-a</span> <span class="at">-m</span> <span class="st">&#39;manually merged from branch test&#39;</span></span></code></pre></div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>05-git-workflow</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="pandoc.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="devnet-sample-git-workflow">DevNet sample Git workflow</h1>
+<p><img src="images/workflow.png" /></p>
+<ol type="1">
+<li>Clone the remote repository.</li>
+</ol>
+<pre><code>git clone &lt;repo&gt;</code></pre>
+<ol start="2" type="1">
+<li>Create and checkout a local branch on your workstation.<br />
+</li>
+</ol>
+<pre><code>git checkout –b new-branch-name</code></pre>
+<ol start="3" type="1">
+<li>Make your changes and perform incremental commits as you go.</li>
+</ol>
+<pre><code>git add filename
+git commit -m &quot;Commit message&quot;</code></pre>
+</body>
+</html>

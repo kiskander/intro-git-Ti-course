@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>04-git-cmd</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="pandoc.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="useful-git-commands">Useful Git Commands</h1>
+<h2 id="setting-up-git">Setting up Git</h2>
+<p>These commands tell Git who you are. You will only need to use these commands after you install it.</p>
+<table>
+<colgroup>
+<col style="width: 52%" />
+<col style="width: 47%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><code>git config --global user.name “your name”</code></td>
+<td style="text-align: center;">Tell Git your name.</td>
+</tr>
+<tr class="even">
+<td><code>git config --global user.email your@email.com</code></td>
+<td style="text-align: center;">Tell Git your email address.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="using-basic-git-commands">Using basic Git commands</h2>
+<p>These are the most essential Git commands. Once you learn these, you’ll be ready to get started.</p>
+<table>
+<tbody>
+<tr class="odd">
+<td><code>git init &lt;directory&gt;</code></td>
+<td style="text-align: center;">Create an empty Git repo in the specified directory.</td>
+</tr>
+<tr class="even">
+<td><code>git clone &lt;repo&gt;</code></td>
+<td style="text-align: center;">Clone repo located at <code>&lt;repo&gt;</code> onto local machine.</td>
+</tr>
+<tr class="odd">
+<td><code>git add &lt;directory&gt;</code></td>
+<td style="text-align: center;">Stage all changes in <code>&lt;directory&gt;</code> for the next commit.</td>
+</tr>
+<tr class="even">
+<td><code>git commit -m "&lt;message&gt;"</code></td>
+<td style="text-align: center;">Commit the staged snapshot.</td>
+</tr>
+<tr class="odd">
+<td><code>git status</code></td>
+<td style="text-align: center;">List which files are staged, unstaged, and untracked.</td>
+</tr>
+<tr class="even">
+<td><code>git log</code></td>
+<td style="text-align: center;">Display the entire commit history using the default format.</td>
+</tr>
+<tr class="odd">
+<td><code>git diff</code></td>
+<td style="text-align: center;">Show unstaged changes between your index and working directory.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="working-with-git-branches">Working with Git branches</h2>
+<p>A branch creates a “safe place” for your changes. You can make changes in your branch without overwriting the changes in other branches.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 66%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><code>git branch</code></td>
+<td style="text-align: center;">Lists all of the branches in your repo.</td>
+</tr>
+<tr class="even">
+<td><code>git checkout -b &lt;branch&gt;</code></td>
+<td style="text-align: center;">Creates and checks out a new branch named <code>&lt;branch&gt;</code>.</td>
+</tr>
+<tr class="odd">
+<td><code>git merge &lt;branch&gt;</code></td>
+<td style="text-align: center;">Merge <code>&lt;branch&gt;</code> into the current branch.</td>
+</tr>
+</tbody>
+</table>
+<p>⚠️ <strong>Hands-on</strong> practice of these commands will follow shortly. But first, let’s look at a typical Git workflow.</p>
+</body>
+</html>
